@@ -1,0 +1,18 @@
+Package: udpipe.vosters
+Type: Package
+Title: UDPipe Models Built on Corpus Vosters
+Version: 0.1.0
+Authors@R: c(
+    person('Jan', 'Wijffels', role = c('aut', 'cre', 'cph'), email = 'jan.wijffels@vub.be'), 
+    person('Vrije Universiteit Brussel - DIGI: Brussels Platform for Digital Humanities', role = 'cph'))
+Maintainer: Jan Wijffels <jan.wijffels@vub.be>
+Description: Perform Parts of Speech Tagging and Lemmatisation on 19th century Southern Dutch texts. Based on a UDPipe model trained on Corpus Vosters.
+License: file LICENSE
+Encoding: UTF-8
+Imports:
+    udpipe
+Suggests:
+    knitr
+VignetteBuilder: knitr
+RoxygenNote: 7.1.0
+

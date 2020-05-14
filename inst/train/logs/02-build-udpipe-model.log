@@ -1,0 +1,404 @@
+> library(utils)
+> library(udpipe)
+Warning message:
+package 'udpipe' was built under R version 3.5.3 
+> library(crfsuite)
+> setwd("C:/Users/Jan/Dropbox/Work/RForgeBNOSAC/VUB/udpipe.vosters/")
+> settings <- list()
+> settings$date <- as.Date("2020-05-13")
+> settings$date <- Sys.Date()
+> settings$modelname <- sprintf("dutch-vosters-%s.udpipe", format(settings$date, "%Y%m%d"))
+> settings$modeloutput <- file.path(getwd(), "inst", "train", "models", settings$modelname)
+> settings$modeldata <- file.path(getwd(), "inst", "train", "data", "modeldata.rds")
+> print(settings)
+$date
+[1] "2020-05-14"
+
+$modelname
+[1] "dutch-vosters-20200514.udpipe"
+
+$modeloutput
+[1] "C:/Users/Jan/Dropbox/Work/RForgeBNOSAC/VUB/udpipe.vosters/inst/train/models/dutch-vosters-20200514.udpipe"
+
+$modeldata
+[1] "C:/Users/Jan/Dropbox/Work/RForgeBNOSAC/VUB/udpipe.vosters/inst/train/data/modeldata.rds"
+
+> 
+> set.seed(123456789)
+> print(Sys.time())
+[1] "2020-05-14 12:24:04 CEST"
+> file.remove(settings$modeloutput)
+[1] TRUE
+> m <- udpipe_train(file = settings$modeloutput, 
++                   files_conllu_training = "inst/train/data/vosters-ud-train.conllu", 
++                   files_conllu_holdout  = "inst/train/data/vosters-ud-dev.conllu",
++                   #annotation_tokenizer = list(dimension = 24, epochs = 100, initialization_range = 0.1, batch_size = 100, learning_rate = 0.005, dropout = 0.1, early_stopping = 1),
++                   annotation_tokenizer = "none",
++                   annotation_tagger = list(models = 2,
++                                            iterations_1 = 20,
++                                            guesser_suffix_rules_1 = 8, guesser_enrich_dictionary_1 = 6, guesser_prefixes_max_1 = 0,
++                                            use_lemma_1 = 0, use_xpostag_1 = 1, use_feats_1 = 1,
++                                            provide_lemma_1 = 0, provide_xpostag_1 = 1, provide_feats_1 = 0, prune_features_1 = 0,
++                                            templates_2 = "lemmatizer",
++                                            iterations_2 = 20,
++                                            guesser_suffix_rules_2 = 6, guesser_enrich_dictionary_2 = 4, guesser_prefixes_max_2 = 4,
++                                            use_lemma_2 = 1, use_xpostag_2 = 0, use_feats_2 = 0,
++                                            provide_lemma_2 = 1, provide_xpostag_2 = 0, provide_feats_2 = 0, prune_features_2 = 0),
++                   annotation_parser = "none")
+Tagger model 1 columns: lemma use=0/provide=0, xpostag use=1/provide=1, feats use=1/provide=0
+Creating morphological dictionary for tagger model 1.
+Tagger model 1 dictionary options: max_form_analyses=0, custom dictionary_file=none
+Tagger model 1 guesser options: suffix_rules=8, prefixes_max=0, prefix_min_count=10, enrich_dictionary=6
+Tagger model 1 options: iterations=20, early_stopping=1, templates=tagger
+Training tagger model 1.
+Iteration 1: done, accuracy 61.04%, heldout accuracy 74.41%t/96.68%l/72.61%b
+Iteration 2: done, accuracy 85.54%, heldout accuracy 79.26%t/96.84%l/77.46%b
+Iteration 3: done, accuracy 93.04%, heldout accuracy 82.46%t/96.83%l/80.52%b
+Iteration 4: done, accuracy 95.32%, heldout accuracy 84.18%t/96.94%l/82.29%b
+Iteration 5: done, accuracy 96.78%, heldout accuracy 85.52%t/97.01%l/83.69%b
+Iteration 6: done, accuracy 97.23%, heldout accuracy 86.39%t/97.08%l/84.57%b
+Iteration 7: done, accuracy 98.04%, heldout accuracy 87.03%t/97.19%l/85.25%b
+Iteration 8: done, accuracy 98.35%, heldout accuracy 87.40%t/97.22%l/85.61%b
+Iteration 9: done, accuracy 98.65%, heldout accuracy 87.78%t/97.20%l/85.98%b
+Iteration 10: done, accuracy 98.83%, heldout accuracy 87.98%t/97.20%l/86.18%b
+Iteration 11: done, accuracy 98.93%, heldout accuracy 88.25%t/97.19%l/86.40%b
+Iteration 12: done, accuracy 99.21%, heldout accuracy 88.40%t/97.19%l/86.57%b
+Iteration 13: done, accuracy 99.29%, heldout accuracy 88.55%t/97.21%l/86.75%b
+Iteration 14: done, accuracy 99.32%, heldout accuracy 88.70%t/97.21%l/86.92%b
+Iteration 15: done, accuracy 99.51%, heldout accuracy 88.86%t/97.20%l/87.06%b
+Iteration 16: done, accuracy 99.53%, heldout accuracy 89.09%t/97.21%l/87.29%b
+Iteration 17: done, accuracy 99.59%, heldout accuracy 89.18%t/97.21%l/87.41%b
+Iteration 18: done, accuracy 99.56%, heldout accuracy 89.23%t/97.21%l/87.45%b
+Iteration 19: done, accuracy 99.31%, heldout accuracy 89.28%t/97.23%l/87.53%b
+Iteration 20: done, accuracy 99.60%, heldout accuracy 89.37%t/97.25%l/87.60%b
+Chosen tagger model from iteration 20
+Tagger model 2 columns: lemma use=1/provide=1, xpostag use=0/provide=0, feats use=0/provide=0
+Creating morphological dictionary for tagger model 2.
+Tagger model 2 dictionary options: max_form_analyses=0, custom dictionary_file=none
+Tagger model 2 guesser options: suffix_rules=6, prefixes_max=4, prefix_min_count=10, enrich_dictionary=4
+Tagger model 2 options: iterations=20, early_stopping=1, templates=lemmatizer
+Training tagger model 2.
+Iteration 1: done, accuracy 68.93%, heldout accuracy 84.07%t/77.62%l/74.02%b
+Iteration 2: done, accuracy 87.81%, heldout accuracy 85.71%t/79.27%l/76.22%b
+Iteration 3: done, accuracy 92.90%, heldout accuracy 86.85%t/80.02%l/77.30%b
+Iteration 4: done, accuracy 91.78%, heldout accuracy 87.30%t/80.28%l/77.65%b
+Iteration 5: done, accuracy 96.92%, heldout accuracy 87.76%t/80.54%l/78.01%b
+Iteration 6: done, accuracy 98.56%, heldout accuracy 88.02%t/80.70%l/78.26%b
+Iteration 7: done, accuracy 99.22%, heldout accuracy 88.32%t/80.82%l/78.44%b
+Iteration 8: done, accuracy 99.49%, heldout accuracy 88.57%t/80.95%l/78.61%b
+Iteration 9: done, accuracy 99.73%, heldout accuracy 88.70%t/80.97%l/78.72%b
+Iteration 10: done, accuracy 99.71%, heldout accuracy 88.85%t/81.12%l/78.89%b
+Iteration 11: done, accuracy 99.80%, heldout accuracy 88.99%t/81.12%l/78.93%b
+Iteration 12: done, accuracy 99.81%, heldout accuracy 89.03%t/81.14%l/78.94%b
+Iteration 13: done, accuracy 99.80%, heldout accuracy 89.09%t/81.16%l/78.96%b
+Iteration 14: done, accuracy 99.87%, heldout accuracy 89.16%t/81.24%l/79.06%b
+Iteration 15: done, accuracy 99.90%, heldout accuracy 89.18%t/81.25%l/79.06%b
+Iteration 16: done, accuracy 99.93%, heldout accuracy 89.24%t/81.28%l/79.10%b
+Iteration 17: done, accuracy 99.95%, heldout accuracy 89.29%t/81.38%l/79.16%b
+Iteration 18: done, accuracy 99.94%, heldout accuracy 89.32%t/81.40%l/79.18%b
+Iteration 19: done, accuracy 99.95%, heldout accuracy 89.42%t/81.45%l/79.24%b
+Iteration 20: done, accuracy 99.96%, heldout accuracy 89.47%t/81.45%l/79.26%b
+Chosen tagger model from iteration 20
+> m
+$file_model
+[1] "C:/Users/Jan/Dropbox/Work/RForgeBNOSAC/VUB/udpipe.vosters/inst/train/models/dutch-vosters-20200514.udpipe"
+
+$annotation_tokenizer
+[1] "none"
+
+$annotation_tagger
+[1] "models=2;iterations_1=20;guesser_suffix_rules_1=8;guesser_enrich_dictionary_1=6;guesser_prefixes_max_1=0;use_lemma_1=0;use_xpostag_1=1;use_feats_1=1;provide_lemma_1=0;provide_xpostag_1=1;provide_feats_1=0;prune_features_1=0;templates_2=lemmatizer;iterations_2=20;guesser_suffix_rules_2=6;guesser_enrich_dictionary_2=4;guesser_prefixes_max_2=4;use_lemma_2=1;use_xpostag_2=0;use_feats_2=0;provide_lemma_2=1;provide_xpostag_2=0;provide_feats_2=0;prune_features_2=0"
+
+$annotation_parser
+[1] "none"
+
+$errors
+[1] ""
+
+$class
+[1] "udpipe_trained_model"
+
+> print(Sys.time())
+[1] "2020-05-14 12:45:40 CEST"
+> 
+> ## Evaluate the accuracy
+> model <- udpipe_load_model(settings$modeloutput)
+> goodness_of_fit <- udpipe_accuracy(model, "inst/train/data/vosters-ud-test.conllu", tokenizer = "none", tagger = "default", parser = "none")
+> goodness_of_fit
+$error
+[1] ""
+
+$accuracy
+[1] "Tagging from gold tokenization - forms: 13787, upostag: 91.15%, xpostag: 90.88%, feats: 100.00%, alltags: 90.88%, lemmas: 84.49%"
+
+attr(,"class")
+[1] "udpipe_accuracy"
+> cat(goodness_of_fit$accuracy, sep = "\n")
+Tagging from gold tokenization - forms: 13787, upostag: 91.15%, xpostag: 90.88%, feats: 100.00%, alltags: 90.88%, lemmas: 84.49%
+> 
+> ## Evaluate the model using crfsuite
+> modeldata <- readRDS(file = settings$modeldata)
+> modeldata <- subset(modeldata, type == "test")
+> pred <- udpipe_annotate(model, 
++                         x = sapply(split(modeldata$token, modeldata$doc_id), FUN=function(x) paste(x, collapse = "\n")), 
++                         tokenizer = "vertical", parser = "none")
+> pred <- as.data.frame(pred)
+> 
+> score <- crf_evaluation(pred = pred$upos, obs = modeldata$upos)
+> score
+$bylabel
+   label  accuracy precision    recall specificity        f1 support
+1      X 0.9895554 0.5564516 0.8023256   0.9919207 0.6571429     172
+2   NOUN 0.9585116 0.9084554 0.9018506   0.9744448 0.9051410    3026
+3    ADP 0.9890477 0.9568376 0.9781564   0.9912159 0.9673796    2289
+4   PRON 0.9849859 0.9316473 0.9272109   0.9918811 0.9294238    1470
+5    DET 0.9935446 0.9519024 0.9836795   0.9946137 0.9675301    1348
+6   VERB 0.9745412 0.9240401 0.9290810   0.9840407 0.9265537    2383
+7   CONJ 0.9929644 0.9319196 0.9586682   0.9952772 0.9451047     871
+8  PROPN 0.9935446 0.4411765 0.3703704   0.9972275 0.4026846      81
+9    ADJ 0.9759193 0.7140575 0.7450000   0.9864260 0.7292007     600
+10   NUM 0.9929644 0.9423929 0.9166667   0.9970209 0.9293518     696
+11   ADV 0.9788932 0.9022556 0.7263923   0.9949850 0.8048290     826
+12  INTJ 0.9990571 1.0000000 0.4090909   1.0000000 0.5806452      22
+13 PUNCT 0.9997824 0.5000000 0.3333333   0.9999275 0.4000000       3
+
+$overall
+        accuracy        precision           recall      specificity 
+       0.9116559        0.9131871        0.9116559        0.9873249 
+              f1   precision_mean      recall_mean specificity_mean 
+       0.9112710        0.8200874        0.7678327        0.9922293 
+         f1_mean 
+       0.7803836 
+
+> score <- crf_evaluation(pred = pred$xpos, obs = modeldata$xpos)
+> score
+$bylabel
+                     label  accuracy precision    recall specificity        f1
+1                       QQ 0.9984768 0.6097561 0.8333333   0.9988370 0.7042254
+2                      znw 0.9585116 0.9084554 0.9018506   0.9744448 0.9051410
+3                       vz 0.9890477 0.9568376 0.9781564   0.9912159 0.9673796
+4                      vnw 0.9849859 0.9316473 0.9272109   0.9918811 0.9294238
+5                     lidw 0.9935446 0.9519024 0.9836795   0.9946137 0.9675301
+6                       ww 0.9745412 0.9240401 0.9290810   0.9840407 0.9265537
+7                       vw 0.9929644 0.9319196 0.9586682   0.9952772 0.9451047
+8               znw(neloc) 0.9952854 0.5789474 0.3098592   0.9988335 0.4036697
+9                      bnw 0.9759193 0.7140575 0.7450000   0.9864260 0.7292007
+10                    telw 0.9929644 0.9423929 0.9166667   0.9970209 0.9293518
+11                      bw 0.9804889 0.8911290 0.6727549   0.9958873 0.7666956
+12                   ww|ww 0.9987670 0.0000000 0.0000000   0.9989843 0.0000000
+13                   vnwbw 0.9944150 0.7515152 0.7750000   0.9969913 0.7630769
+14                      tw 0.9990571 1.0000000 0.4090909   1.0000000 0.5806452
+15               telw|telw 0.9993472 0.0000000        NA   0.9993472        NA
+16                 vz,lidw 0.9978240 0.7760000 0.9797980   0.9979544 0.8660714
+17                    NONE 0.9996373 0.0000000 0.0000000   0.9997099 0.0000000
+18                   uitdr 0.9994923 0.7500000 0.3333333   0.9999274 0.4615385
+19                  ww|bnw 0.9999275 0.0000000        NA   0.9999275        NA
+20               vnwbw,bnw 0.9998549 0.0000000        NA   0.9998549        NA
+21                 znw|znw 0.9995648 0.0000000 0.0000000   0.9997098 0.0000000
+22               znw,vnwbw 0.9998549 0.0000000        NA   0.9998549        NA
+23             vnw,znw|znw 0.9998549 0.0000000        NA   0.9998549        NA
+24                   bw,ww 0.9998549 0.0000000        NA   0.9998549        NA
+25                  znw,ww 0.9995648 0.0000000 0.0000000   0.9996373 0.0000000
+26              znw(neper) 0.9979691 0.2000000 0.6000000   0.9982580 0.3000000
+27                   vz,ww 0.9997099 0.0000000        NA   0.9997099        NA
+28                  bw|znw 0.9997099 0.0000000        NA   0.9997099        NA
+29                   bw|bw 0.9999275 0.0000000        NA   0.9999275        NA
+30                 bnw|znw 0.9999275 0.0000000        NA   0.9999275        NA
+31                   ww,vz 0.9996373 0.3750000 1.0000000   0.9996373 0.5454545
+32                 vnw,znw 0.9998549 0.7500000 1.0000000   0.9998549 0.8571429
+33             vnwbw|vnwbw 0.9999275 0.0000000        NA   0.9999275        NA
+34                vnwbw,ww 0.9998549 0.0000000 0.0000000   0.9999275 0.0000000
+35          znw,znw(neloc) 0.9997824 0.0000000 0.0000000   0.9998549 0.0000000
+36                znw,lidw 0.9999275 0.0000000        NA   0.9999275        NA
+37 vnwbw,vz,ww|vnwbw,vz,ww 0.9997099 0.0000000        NA   0.9997099        NA
+38                   ww,vw 0.9999275 0.0000000        NA   0.9999275        NA
+39                 bnw,znw 0.9999275 0.0000000        NA   0.9999275        NA
+40                      NN 0.9997824 0.5000000 0.3333333   0.9999275 0.4000000
+41                lidw,bnw 0.9998549        NA 0.0000000   1.0000000        NA
+42             vz,lidw,bnw 0.9999275        NA 0.0000000   1.0000000        NA
+43                  znw,vz 0.9999275        NA 0.0000000   1.0000000        NA
+44           znw,ww|znw,vz 0.9999275        NA 0.0000000   1.0000000        NA
+45                lidw,znw 0.9997099        NA 0.0000000   1.0000000        NA
+46           vz,znw(neper) 0.9997824        NA 0.0000000   1.0000000        NA
+47                  vz,vnw 0.9998549        NA 0.0000000   1.0000000        NA
+48                  bnw|ww 0.9999275        NA 0.0000000   1.0000000        NA
+49                  vz,znw 0.9998549        NA 0.0000000   1.0000000        NA
+50                 vnw,bnw 0.9999275        NA 0.0000000   1.0000000        NA
+51                 znw,znw 0.9998549        NA 0.0000000   1.0000000        NA
+52                  znw,tw 0.9998549        NA 0.0000000   1.0000000        NA
+53                 znw,vnw 0.9999275        NA 0.0000000   1.0000000        NA
+54                  vz,bnw 0.9999275        NA 0.0000000   1.0000000        NA
+55                telw,znw 0.9999275        NA 0.0000000   1.0000000        NA
+   support
+1       30
+2     3026
+3     2289
+4     1470
+5     1348
+6     2383
+7      871
+8       71
+9      600
+10     696
+11     657
+12       3
+13     160
+14      22
+15       0
+16      99
+17       1
+18       9
+19       0
+20       0
+21       2
+22       0
+23       0
+24       0
+25       1
+26      10
+27       0
+28       0
+29       0
+30       0
+31       3
+32       6
+33       0
+34       1
+35       1
+36       0
+37       0
+38       0
+39       0
+40       3
+41       2
+42       1
+43       1
+44       1
+45       4
+46       3
+47       2
+48       1
+49       2
+50       1
+51       2
+52       2
+53       1
+54       1
+55       1
+
+$overall
+        accuracy        precision           recall      specificity 
+       0.9087546        0.9133639        0.9087546        0.9874865 
+              f1   precision_mean      recall_mean specificity_mean 
+       0.9103714        0.3610900        0.3646704        0.9981135 
+         f1_mean 
+       0.5579282 
+
+> score <- prop.table(table(pred$lemma == modeldata$lemma))
+> score
+
+    FALSE      TRUE 
+0.1551462 0.8448538 
+> score <- prop.table(table(modeldata$xpos, pred$lemma == modeldata$lemma), margin = 1)
+> score
+                
+                       FALSE        TRUE
+  bnw            0.233333333 0.766666667
+  bnw|ww         1.000000000 0.000000000
+  bw             0.179604262 0.820395738
+  lidw           0.007418398 0.992581602
+  lidw,bnw       1.000000000 0.000000000
+  lidw,znw       1.000000000 0.000000000
+  NN             0.333333333 0.666666667
+  NONE           1.000000000 0.000000000
+  QQ             0.166666667 0.833333333
+  telw           0.385057471 0.614942529
+  telw,znw       1.000000000 0.000000000
+  tw             0.136363636 0.863636364
+  uitdr          0.555555556 0.444444444
+  vnw            0.099319728 0.900680272
+  vnw,bnw        1.000000000 0.000000000
+  vnw,znw        0.333333333 0.666666667
+  vnwbw          0.550000000 0.450000000
+  vnwbw,ww       1.000000000 0.000000000
+  vw             0.048220436 0.951779564
+  vz             0.029707296 0.970292704
+  vz,bnw         1.000000000 0.000000000
+  vz,lidw        0.080808081 0.919191919
+  vz,lidw,bnw    1.000000000 0.000000000
+  vz,vnw         1.000000000 0.000000000
+  vz,znw         1.000000000 0.000000000
+  vz,znw(neper)  1.000000000 0.000000000
+  ww             0.162400336 0.837599664
+  ww,vz          0.000000000 1.000000000
+  ww|ww          1.000000000 0.000000000
+  znw            0.249173827 0.750826173
+  znw(neloc)     0.788732394 0.211267606
+  znw(neper)     0.400000000 0.600000000
+  znw,tw         1.000000000 0.000000000
+  znw,vnw        1.000000000 0.000000000
+  znw,vz         1.000000000 0.000000000
+  znw,ww         1.000000000 0.000000000
+  znw,ww|znw,vz  1.000000000 0.000000000
+  znw,znw        1.000000000 0.000000000
+  znw,znw(neloc) 1.000000000 0.000000000
+  znw|znw        1.000000000 0.000000000
+> 
+> 
+> # ## TUNE the model
+> # library(data.table)
+> # results <- lapply(1:10, FUN=function(runnr){
+> #     print(runnr)
+> #     set.seed(123456789)
+> #     print(Sys.time())
+> #     file.remove(settings$modeloutput)
+> #     m <- udpipe_train(file = settings$modeloutput,
+> #                       files_conllu_training = "inst/train/data/vosters-ud-train.conllu",
+> #                       files_conllu_holdout  = "inst/train/data/vosters-ud-dev.conllu",
+> #                       #annotation_tokenizer = list(dimension = 24, epochs = 100, initialization_range = 0.1, batch_size = 100, learning_rate = 0.005, dropout = 0.1, early_stopping = 1),
+> #                       annotation_tokenizer = "none",
+> #                       annotation_tagger = list(models = 2,
+> #                                                templates_1 = "tagger",
+> #                                                iterations_1 = 15,
+> #                                                run = runnr,
+> #                                                #guesser_prefix_min_count = 2, dictionary_max_form_analyses = 0,
+> #                                                #guesser_suffix_rules_1 = 8, guesser_enrich_dictionary_1 = 6, guesser_prefixes_max_1 = 0,
+> #                                                use_lemma_1 = 0, provide_lemma_1 = 0,
+> #                                                use_xpostag_1 = 1, provide_xpostag_1 = 1,
+> #                                                use_feats_1 = 0, provide_feats_1 = 0, prune_features_1 = 0,
+> #                                                templates_2 = "lemmatizer",
+> #                                                iterations_2 = 15,
+> #                                                run = runnr,
+> #                                                #guesser_prefix_min_count = 2, dictionary_max_form_analyses = 0,
+> #                                                #guesser_suffix_rules_2 = 6, guesser_enrich_dictionary_2 = 4, guesser_prefixes_max_2 = 4,
+> #                                                use_lemma_2 = 1, provide_lemma_2 = 1,
+> #                                                use_xpostag_2 = 0, provide_xpostag_2 = 0,
+> #                                                provide_feats_2 = 0, use_feats_2 = 0, prune_features_2 = 0),
+> #                       annotation_parser = "none")
+> #     print(Sys.time())
+> # 
+> #     ## Evaluate the accuracy
+> #     model <- udpipe_load_model(settings$modeloutput)
+> #     goodness_of_fit <- udpipe_accuracy(model, "inst/train/data/vosters-ud-test.conllu", tokenizer = "none", tagger = "default", parser = "none")
+> #     cat(goodness_of_fit$accuracy, sep = "\n")
+> # 
+> #     ## Evaluate the model using crfsuite
+> #     modeldata <- readRDS(file = settings$modeldata)
+> #     modeldata <- subset(modeldata, type == "test")
+> #     pred <- udpipe_annotate(model,
+> #                             x = sapply(split(modeldata$token, modeldata$doc_id), FUN=function(x) paste(x, collapse = "\n")),
+> #                             tokenizer = "vertical", parser = "none")
+> #     pred <- as.data.frame(pred)
+> #     modeldata$pred_upos <- pred$upos
+> #     modeldata$pred_xpos <- pred$xpos
+> #     modeldata$pred_lemma <- pred$lemma
+> # 
+> #     score <- crf_evaluation(pred = pred$upos, obs = modeldata$upos)
+> #     score
+> # })
+> # 
+> # plot(sapply(results, FUN=function(x) x$overall[["f1"]]))
+> # 
+> # rest <- rbindlist(lapply(results, FUN=function(x) x$bylabel), idcol = "run")
+> # lattice::xyplot(100*f1 ~ run | label, data = rest, scales = list(y = list(relation = "free")), pch = 20)
+> 

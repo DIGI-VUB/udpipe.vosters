@@ -1,0 +1,37 @@
+---
+title: "Corpus Vosters POS / Lemmatisation"
+author: "Jan Wijffels"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    fig_caption: false
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Corpus Vosters POS / Lemmatisation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, comment = NA, eval = TRUE)
+```
+
+## Example usage
+
+
+```{r}
+library(udpipe.vosters)
+x <- data.frame(doc_id = c("a", "b"), 
+                text = c("beschuldigd van zich pligtig of ten minsten door medewerking af verheeling medepligtig gemaakt te hebben aan eenen diefstal van Kleedings",
+                         "eindelijk by den bergdrager gekomen zynde vernaam hy dat er, den avond te voren, ontrent zeven uren en half, eenen langen en mageren persoon eenen kantoenen mantel te beleenen had gebragt"), 
+                stringsAsFactors = FALSE)
+anno <- udpipe_vosters(x)
+anno
+anno <- udpipe_vosters(x, tokenizer = "basic")
+anno
+```
