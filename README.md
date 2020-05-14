@@ -40,8 +40,8 @@ anno
       a           1        zich         zich  PRON        vnw        3       3    17  20
       a           1     pligtig     plichtig   ADJ        bnw        4       4    22  28
       a           1          of           of  CONJ         vw        5       5    30  31
-      a           1         ten    tenminste   ADV         bw        6       6    33  35
-      a           1     minsten    tenminste   ADV         bw        7       7    37  43
+      a           1         ten    tenminste     X    vz,lidw        6       6    33  35
+      a           1     minsten    tenminste  NOUN        znw        7       7    37  43
       a           1        door         door   ADP         vz        8       8    58  61
       a           1 medewerking  medewerking  NOUN        znw        9       9    63  73
       a           1          af           of  CONJ         vw       10      10    75  76
@@ -56,7 +56,7 @@ anno
       a           1         van          van   ADP         vz       19      19   151 153
       a           1   Kleedings kledingsgoed  NOUN        znw       20      20   155 163
       b           1       eenen          een   DET       lidw        1       1     1   5
-      b           1      langen         lang  NOUN        znw        2       2     7  12
+      b           1      langen         lang     X    znw,znw        2       2     7  12
       b           1          en           en  CONJ         vw        3       3    14  15
       b           1     mageren        mager PROPN znw(neloc)        4       4    17  23
       b           1     persoon      persoon  NOUN        znw        5       5    25  31
