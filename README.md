@@ -6,6 +6,8 @@ This repository contains an R package for doing Parts of Speech tagging and Lemm
 - The model was trained on the Vosters corpus
     - https://rikvosters.be/wp-content/uploads/2018/09/2014-NandU-19CDutch.pdf
     - http://homepages.vub.ac.be/~wvdbussc/2014AHS3b.pdf
+    - Voor de samenstelling van dit corpus werd dankbaar gebruik gemaakt van de beeldbank **'Corpus negentiende-eeuws juridisch taalgebruik (1814-1830)’** (https://ctb.kantl.be/publicaties/corpus-negentiende-eeuws-juridisch-taalgebruik-1814-1830) die door het Centrum voor Teksteditie (https://ctb.kantl.be) en Bronnenstudie van de Koninklijke Academie voor Nederlandse Taal en Letteren (KANTL - https://www.kantl.be) werd samengesteld.
+    
 - Code used to construct the training dataset and the code used to train the model is available in the inst/train/src folder. The data which was used to train the model is not distributed in this package.
 
 ### Installation
