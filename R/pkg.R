@@ -41,7 +41,7 @@ udpipe_vosters <- function(x, tokenizer = c("generic", "basic"), trace=FALSE, ..
         x <- split(x$text, x$doc_id)
         x <- lapply(x, FUN = tokenize_simple, ...)
         x <- sapply(x, FUN = function(x) paste(x, collapse = "\n"))
-        x <- udpipe::udpipe_annotate(nlp$model, x = x, tokenizer = "vertical", tagger = "default", parser = "none", trace = trace)
+        x <- udpipe::udpipe_annotate(nlp$model, x = x, doc_id = names(x), tokenizer = "vertical", tagger = "default", parser = "none", trace = trace)
         x <- as.data.frame(x, detailed = TRUE)   
         x <- x[, intersect(c("doc_id", "sentence_id", "token", "lemma", "upos", "xpos", "token_id", "term_id"), colnames(x))]
     }else if(tokenizer == "generic"){
